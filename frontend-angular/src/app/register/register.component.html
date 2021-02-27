@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+
+<div class="row align-items-center h-100">
+
+
+    <div class="col">
+
+    </div>
+
+    <div class="col">
+      <form [formGroup]="form" (ngSubmit)="form.valid && onRegister()" class="form-style ">
+        <fieldset>
+          <legend style="text-align:center">Register</legend>
+          <div class="form-group">
+
+            <label style="margin-left:10px" for="username">Username</label>
+            <input type="text" class="form-control " formControlName="username" [ngClass]="{'is-invalid':form.get('username').touched && form.get('username').invalid}" required />
+            <div class="invalid-feedback">
+              <div>Username is required</div>
+            </div>
+
+            <label style="margin-left:10px" for="email">Email address</label>
+            <input type="email" class="form-control " formControlName="email" [ngClass]="{'is-invalid':form.get('email').touched && form.get('email').invalid}" required />
+            <div class="invalid-feedback">
+              <div>Valid Email is required</div>
+            </div>
+
+            <label style="margin-left:10px" for="password">Password</label>
+            <input type="password" class="form-control " formControlName="password" [ngClass]="{'is-invalid':form.get('password').touched && form.get('password').invalid}" required />
+            <div class="invalid-feedback">
+              <div>Password is required</div>
+            </div>
+
+            <label style="margin-left:10px" for="role">Role</label>
+            <select class="custom-select"  formControlName="role" [ngClass]="{'is-invalid':form.get('role').touched && form.get('role').invalid}" required >
+                <option value="manager">manager</option>
+                <option value="employee">employee</option>
+            </select>
+            <div class="invalid-feedback">
+                <div>Role is required</div>
+              </div>
+          </div>
+        
+            
+        </fieldset>
+        <div class="text-center">
+              <button type="submit" class="btn btn-primary" style="margin-bottom:10px" [disabled]="!form.valid">Register</button>
+        </div>
+    </form>
+    </div>
+
+    <div class="col">
+
+    </div>
+
+</div>    
+
+<!-- <label for="exampleInputEmail1">Username</label>
+<input type="email" class="form-control " name="username" [(ngModel)]="username"  placeholder="Enter Username"/>
+
+<label for="exampleInputEmail1">Email address</label>
+<input type="email" class="form-control " name="email" [(ngModel)]="email" aria-describedby="emailHelp" placeholder="Enter email"/>
+
+<label for="exampleInputPassword1">Password</label>
+<input type="password" class="form-control " name="password" [(ngModel)]="password" placeholder="Password"/>
+
+<label for="exampleInputEmail1">Role</label>
+<select class="custom-select" [(ngModel)]="role" name="role" >
+  <option value="manager">manager</option>
+  <option value="employee">employee</option>
+</select> -->

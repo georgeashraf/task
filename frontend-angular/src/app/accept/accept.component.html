@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="alert alert-dismissible alert-success" *ngIf="alert">
+    <button type="button" class="close" data-dismiss="alert"></button>
+<strong>{{acceptmessage}}</strong>
+</div>
+<h4 style="text-align: center">leaves submitions</h4>
+<div *ngIf="!submmitedPosts" style="text-align:center">
+    No leaves submitted
+</div>
+<div class="d-flex p-2">
+  <div class="d-flex flex-row flex-lg-wrap justify-content-center">
+        <div *ngFor="let post of Posts" class="p-2 ">
+            <div class="card border-primary mb-3" style="max-width: 50rem; display: inline-block;">
+                <div class="card-header">Submition Date: {{post.submitionDate.split('T')[0]}}</div>
+                <div class="card-body">
+                  <p class="card-text">Reason: {{post.leaveReason}} </p>
+                </div>
+                <div class="card-header">Leave Date: {{post.leaveDate.split(repattern)[0].concat(post.leaveDate.split(repattern)[1])}}</div>
+                <div class="card-header">Employee Name: {{post.employeeName}}</div>
+                <div class="card-header">Employee Email: {{post.employeeEmail}}</div>
+                <div *ngIf="post.status=='accepted'" style="color:green" class="card-header">Status: {{post.status}}</div>
+                <div *ngIf="post.status=='rejected'" style="color:red" class="card-header">Status: {{post.status}}</div>
+                <div *ngIf="post.status=='pending'">
+                        <div class="card-header"> Status: pending </div>  
+                    </div>
+                <div class="text-center" style="margin:10px">
+                    <button (click)="acceptLeave($event,post.Id,'accepted')" type="button" class="btn btn-outline-success" style="margin-right:10px">Accept</button>
+                    <button (click)="acceptLeave($event,post.Id,'rejected')"  type="button" class="btn btn-outline-danger">Decline</button>
+                </div>
+                <!-- <div *ngIf="post.isAccepted">
+                  <div class="card-header">Accepted: <mat-icon color = "primary">check</mat-icon> </div>  
+                </div>
+                <div *ngIf="!post.isAccepted">
+                    <div class="card-header"> Accepted: <mat-icon color = "primary">close</mat-icon> </div>  
+                </div>
+                 <div class="card-header" value="correct value">Acceptance: {{post.isAccepted}}</div> 
+                <div class="card-header">Status: {{post.status}}</div> -->
+                
+            </div>
+        </div>
+  </div>
+</div>
+
+    <!-- <button (click)="deletepost($event,post.Id)" type="button" class="btn btn-outline-secondary">Delete</button> -->
+    <!-- <button  type="button" class="btn btn-outline-secondary">Delete</button> -->
+
+ 

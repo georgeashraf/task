@@ -1,0 +1,114 @@
+<app-navbar></app-navbar>
+<div class="alert alert-dismissible alert-success" *ngIf="alert">
+  <button type="button" class="close" data-dismiss="alert"></button>
+<strong>{{submitmessage}}</strong>
+</div>
+
+<h4 style="margin-top:10px;margin-left:10px">please fill the leave form</h4>
+<br>
+<div id="container" >
+    <div id="second">
+        <div class="form-group" style="margin-left:10px">
+            <form [formGroup]="form" (ngSubmit)="form.valid && submitPost()">
+                <textarea placeholder="Enter reason for the leave" class="form-control col-md-4" style="margin-bottom:10px;" id="exampleTextarea" rows="4" formControlName="leavetext" [ngClass]="{'is-invalid':form.get('leavetext').touched && form.get('leavetext').invalid}" required ></textarea>
+                <div class="input-group mb-3">
+                    <h5 style="margin-top:10px">leave Date: </h5>
+                    <input readonly  [matDatepicker]="basicDatepicker" (dateInput)="addEvent( $event)" placeholder="select date"  >
+                    <mat-datepicker-toggle [for]="basicDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #basicDatepicker></mat-datepicker>
+                <h5 style="margin-top:10px">direct  Manager: </h5>
+                <select   class="custom-select col-md-4" style="margin-bottom:10px;" formControlName="managername" [ngClass]="{'is-invalid':form.get('managername').touched && form.get('managername').invalid}" required >
+                        <option *ngFor="let manager of Managers" [ngValue]="manager" >{{manager}} </option>
+                </select>
+                <div class="">
+                  <button type="submit" class="float-right btn btn-primary " [disabled]="!form.valid" style="margin-left:10px;">Post</button>
+                </div>
+              </div>
+            </form>
+            
+        </div>
+
+
+
+         
+        
+        <br>
+        <div *ngIf="!submmitedPosts" style="text-align:center">
+              No leaves submitted
+        </div>
+        <h4 style="text-align: center">Leaves History</h4>
+        <div class="d-flex p-2" >
+          <div class="d-flex flex-row flex-lg-wrap justify-content-center">
+            <div *ngFor="let post of Posts" class="p-2 ">
+              <div class="card border-primary mb-3" style="max-width: 50rem; display: inline-block;">
+                  <div class="card-header" style="text-align:center">Post Date: {{post.submitionDate.split('T')[0]}}</div>
+                  <div class="card-body">
+                    <p class="card-text">Reason: {{post.leaveReason}} </p>
+                  </div>
+                  <div class="card-header">Leave Date: {{post.leaveDate.split(repattern)[0].concat(post.leaveDate.split(repattern)[1])}}</div>  
+                  <div class="card-header">Direct Manager: {{post.managerName}}</div>
+                  <div class="card-header">Manager Email: {{post.managerEmail}}</div>
+                  <div *ngIf="post.status=='accepted'">
+                    <div class="card-header">Status: <mat-icon style="color:#18bc9c">check</mat-icon> </div>  
+                  </div>
+                  <div *ngIf="post.status=='rejected'">
+                      <div class="card-header"> Status: <mat-icon style="color:#e74c3c">close</mat-icon> </div>  
+                  </div>
+                  <div *ngIf="post.status=='pending'">
+                      <div class="card-header"> Status: pending </div>  
+                  </div>
+                  
+                  <div class="text-center" style="margin:10px">
+                    <button *ngIf="post.status=='pending'"  (click)="deletepost($event,post.Id)" type="button" class="btn btn-outline-danger  ">Delete</button>
+                    <button *ngIf="post.status=='rejected' ||  post.status=='accepted'" disabled    type="button" class="btn btn-outline-danger tooltip ">Delete
+                        <span class="tooltiptext ">Can't delete manager already taken decision</span>
+
+                    </button>
+
+                  </div>
+
+              </div>
+              <!-- <div style="width:5px;height:auto;display:inline-block;"></div> -->
+  
+          </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+              <div *ngFor="let post of Posts">
+                <div class="card border-primary mb-3" style="max-width: 50rem; display: inline-block;">
+                    <div class="card-header" style="text-align:center">Post Date: {{post.date.split('T')[0]}}</div>
+                    <div class="card-body">
+                      <p class="card-text">Reason: {{post.leaveReason}} </p>
+                    </div>
+                    <div class="card-header">Direct Manager: {{post.managerName}}</div>
+                    <div class="card-header">Manager Email: {{post.managerEmail}}</div>
+                    <div *ngIf="post.isAccepted">
+                      <div class="card-header">Accepted: <mat-icon color = "primary">check</mat-icon> </div>  
+                    </div>
+                    <div *ngIf="!post.isAccepted">
+                        <div class="card-header"> Accepted: <mat-icon color = "primary">close</mat-icon> </div>  
+                    </div>
+                    
+                    <div class="card-header">Status: {{post.status}}</div>
+                    
+                </div>
+                <div style="width:5px;height:auto;display:inline-block;"></div>
+                <button (click)="deletepost($event,post.Id)" type="button" class="btn btn-outline-danger">Delete</button>
+    
+            </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div> -->
+ 
+    </div >  
+</div>
+
+
+<!-- <div class="card-header" value="correct value">Acceptance: {{post.isAccepted}}</div> -->
+                <!-- <button  type="button" class="btn btn-outline-secondary">Delete</button> -->
